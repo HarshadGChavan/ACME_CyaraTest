@@ -14,6 +14,6 @@ namespace ACME_Token_Mgmt_BackEnd.Repositories
         Constants.VerifyToken ValidateToken(Token token);
         bool ChangeTokenState(Token token);
         List<Token> GetAllTokens();
-        bool AuthenticateAdmin(string userName,string password);
+        Constants.LoginResult AuthenticateAdmin(string userName,string password);
     }
 }

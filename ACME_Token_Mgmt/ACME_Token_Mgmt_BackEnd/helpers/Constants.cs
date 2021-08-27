@@ -14,5 +14,12 @@ namespace ACME_Token_Mgmt_BackEnd.helpers
             Expired,
             Valid
         }
+
+        public enum LoginResult
+        {
+            InvalidUserNamePassword,
+            InvalidInput,
+            Valid
+        }
     }
 }

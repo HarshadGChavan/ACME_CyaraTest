@@ -27,14 +27,18 @@ namespace ACME_Token_Mgmt_BackEnd.Controllers
         [HttpPost]
         public IActionResult post(AdminLoginDTO adminLoginDTO)
         {
-            if( tokenManager.AuthenticateAdmin(adminLoginDTO.username, adminLoginDTO.Password))
+            var resultLogin = tokenManager.AuthenticateAdmin(adminLoginDTO.username, adminLoginDTO.Password);
+
+            switch (resultLogin)
             {
-                return Ok();    
+                case helpers.Constants.LoginResult.InvalidInput:
+                    return BadRequest("Please provide valid input.");
+                case helpers.Constants.LoginResult.InvalidUserNamePassword:
+                    return BadRequest("Please provide valid UserName/Password.");
+                case helpers.Constants.LoginResult.Valid:
+                    return Ok();
             }
-            else
-            {
-                return NotFound();
-            }
+            return NotFound();
         }
     }
 }

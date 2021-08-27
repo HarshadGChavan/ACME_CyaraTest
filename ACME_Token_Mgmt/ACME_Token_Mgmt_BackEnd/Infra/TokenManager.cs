@@ -12,15 +12,15 @@ namespace ACME_Token_Mgmt_BackEnd.Infra
 {
     public class TokenManager : ITokenManager
     {
-        public bool AuthenticateAdmin(string userName, string password)
+        public Constants.LoginResult AuthenticateAdmin(string userName, string password)
         {
             if (!String.IsNullOrWhiteSpace(userName) &&
-                !String.IsNullOrWhiteSpace(password) &&
-                userName.ToLower() == "admin" &&
-                password == "Password")
-                return true;
-            else
-                return false;
+                !String.IsNullOrWhiteSpace(password) )
+                return Constants.LoginResult.InvalidInput;
+            if(userName.ToLower() != "admin" ||
+               password != "Password")
+                return Constants.LoginResult.InvalidUserNamePassword;
+            return Constants.LoginResult.Valid;
         }
 
         public Token GenerateToken()
