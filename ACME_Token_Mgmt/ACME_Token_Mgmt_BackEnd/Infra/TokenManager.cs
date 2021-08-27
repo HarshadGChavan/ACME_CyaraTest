@@ -43,7 +43,6 @@ namespace ACME_Token_Mgmt_BackEnd.Infra
             updatetoken.Active = token.Active;
             return true;
         }
-                
 
         public List<Token> GetAllTokens()
         {

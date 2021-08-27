@@ -25,7 +25,7 @@ namespace ACME_Token_Mgmt_BackEnd.Controllers
         }
 
         [HttpPost]
-        public IActionResult post(AdminLoginDTO adminLoginDTO)
+        public IActionResult Post(AdminLoginDTO adminLoginDTO)
         {
             var resultLogin = tokenManager.AuthenticateAdmin(adminLoginDTO.username, adminLoginDTO.Password);
 
