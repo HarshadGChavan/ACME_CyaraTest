@@ -46,7 +46,9 @@ namespace ACME_Token_Mgmt_BackEnd.Infra
 
         public List<Token> GetAllTokens()
         {
-           return StaticTokenDB.Tokens.Where(x => x.Active 
+           //return StaticTokenDB.Tokens.Where(x => x.Active 
+           // && x.ExpiryDate > DateTime.Now).ToList();
+           return StaticTokenDB.Tokens.Where(x => x.Active
             && x.ExpiryDate > DateTime.Now).ToList();
         }
 
@@ -63,7 +65,6 @@ namespace ACME_Token_Mgmt_BackEnd.Infra
                 return Constants.VerifyToken.Invalid;
 
             return Constants.VerifyToken.Valid;
-
         }
     }
 }

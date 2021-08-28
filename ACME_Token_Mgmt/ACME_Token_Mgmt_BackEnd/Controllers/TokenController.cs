@@ -28,22 +28,24 @@ namespace ACME_Token_Mgmt_BackEnd.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-
-            return Ok();
+            var resultTokens = tokenManager.GetAllTokens();
+            return Ok(resultTokens);
         }
 
         //.... Generate token operation
         [HttpPost]
         public IActionResult Post()
         {
-            return Ok();
+            var resultToken = tokenManager.GenerateToken();
+            return Ok(resultToken);
         }
 
         //.... Update token operation
         [HttpPut]
         public IActionResult Put(Token token)
         {
-            return Ok();
+            var resultToken = tokenManager.ChangeTokenState(token);
+            return Ok(resultToken);
         }
     }
 }
