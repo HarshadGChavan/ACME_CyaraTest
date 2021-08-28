@@ -26,7 +26,7 @@ namespace ACME_Token_Mgmt_BackEnd.Controllers
 
         //.... Get list of tokens
         [HttpGet]
-        public IActionResult Get()
+        public ActionResult<List<Token>> Get()
         {
             var resultTokens = tokenManager.GetAllTokens();
             return Ok(resultTokens);
@@ -34,7 +34,7 @@ namespace ACME_Token_Mgmt_BackEnd.Controllers
 
         //.... Generate token operation
         [HttpPost]
-        public IActionResult Post()
+        public ActionResult<Token> Post()
         {
             var resultToken = tokenManager.GenerateToken();
             return Ok(resultToken);
@@ -42,7 +42,7 @@ namespace ACME_Token_Mgmt_BackEnd.Controllers
 
         //.... Update token operation
         [HttpPut]
-        public IActionResult Put(Token token)
+        public ActionResult<Token> Put(Token token)
         {
             var resultToken = tokenManager.ChangeTokenState(token);
             return Ok(resultToken);

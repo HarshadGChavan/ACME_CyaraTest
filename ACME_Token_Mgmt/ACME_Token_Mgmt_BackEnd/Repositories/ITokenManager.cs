@@ -12,7 +12,7 @@ namespace ACME_Token_Mgmt_BackEnd.Repositories
     {
         Token GenerateToken();
         Constants.VerifyToken ValidateToken(Token token);
-        bool ChangeTokenState(Token token);
+        Token ChangeTokenState(Token token);
         List<Token> GetAllTokens();
         Constants.LoginResult AuthenticateAdmin(string userName,string password);
     }

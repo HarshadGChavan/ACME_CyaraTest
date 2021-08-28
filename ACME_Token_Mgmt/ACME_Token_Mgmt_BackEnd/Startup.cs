@@ -34,6 +34,12 @@ namespace ACME_Token_Mgmt_BackEnd
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ACME_Token_Mgmt_BackEnd", Version = "v1" });
             });
+            services.AddCors();
+            //    c =>
+            //{
+            //    c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            //});
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +55,8 @@ namespace ACME_Token_Mgmt_BackEnd
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
             app.UseAuthorization();
 

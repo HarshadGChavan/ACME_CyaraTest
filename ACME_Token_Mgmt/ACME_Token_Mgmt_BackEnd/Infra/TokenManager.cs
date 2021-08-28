@@ -14,11 +14,11 @@ namespace ACME_Token_Mgmt_BackEnd.Infra
     {
         public Constants.LoginResult AuthenticateAdmin(string userName, string password)
         {
-            if (!String.IsNullOrWhiteSpace(userName) &&
-                !String.IsNullOrWhiteSpace(password) )
+            if (String.IsNullOrWhiteSpace(userName) &&
+                String.IsNullOrWhiteSpace(password) )
                 return Constants.LoginResult.InvalidInput;
             if(userName.ToLower() != "admin" ||
-               password != "Password")
+               password != "admin@123")
                 return Constants.LoginResult.InvalidUserNamePassword;
             return Constants.LoginResult.Valid;
         }
@@ -36,12 +36,12 @@ namespace ACME_Token_Mgmt_BackEnd.Infra
             return token;
         }
 
-        public bool ChangeTokenState(Token token)
+        public Token ChangeTokenState(Token token)
         {
             var updatetoken = StaticTokenDB.Tokens.FirstOrDefault(x => x.Value == token.Value
             && x.ExpiryDate > DateTime.Now);
             updatetoken.Active = token.Active;
-            return true;
+            return updatetoken;
         }
 
         public List<Token> GetAllTokens()

@@ -25,7 +25,7 @@ namespace ACME_Token_Mgmt_BackEnd.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(AdminLoginDTO adminLoginDTO)
+        public ActionResult<adminResponseDTO> Post(AdminLoginDTO adminLoginDTO)
         {
             var resultLogin = tokenManager.AuthenticateAdmin(adminLoginDTO.username, adminLoginDTO.Password);
 
@@ -36,7 +36,7 @@ namespace ACME_Token_Mgmt_BackEnd.Controllers
                 case helpers.Constants.LoginResult.InvalidUserNamePassword:
                     return BadRequest("Please provide valid UserName/Password.");
                 case helpers.Constants.LoginResult.Valid:
-                    return Ok();
+                    return Ok(new adminResponseDTO() {username="Admin" });
             }
             return NotFound();
         }
