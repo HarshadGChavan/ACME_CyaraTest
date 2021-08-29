@@ -8,10 +8,10 @@ namespace ACME_Token_Mgmt_BackEnd.Dao
 {
     public static class StaticTokenDB
     {
-        public static List<Token> Tokens = new List<Token>()
-        {  
-            new Token()
-            {token="TestToken1",Active=true,ExpiryDate=DateTime.Now.AddMinutes(5)}
-        };
+        public static List<Token> Tokens = new List<Token>();
+        //{  
+        //    new Token()
+        //    {token="TestToken1",Active=true,ExpiryDate=DateTime.Now.AddMinutes(5)}
+        //};
     }
 }

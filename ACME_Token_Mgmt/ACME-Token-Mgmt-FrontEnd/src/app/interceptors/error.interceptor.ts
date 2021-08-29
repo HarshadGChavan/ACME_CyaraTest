@@ -1,3 +1,4 @@
+import { error } from 'selenium-webdriver';
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import {
@@ -31,20 +32,18 @@ export class ErrorInterceptor implements HttpInterceptor {
                     modalStateErrors.push(error.error.errors[key]);
                   }
                 }
-                console.log('-----------------------');
-                console.log(modalStateErrors[0]);
-                console.log(modalStateErrors[0].statusText);
-                console.log(modalStateErrors[0].status);
-                console.log('-----------------------');
+
                 this.toastr.error(modalStateErrors[0], error.status);
               }
               else{
                 console.log('inside if else');
-                this.toastr.error(error.statusText, error.status);
+                console.log(error);
+                console.log('d');
+                this.toastr.error(error.error, error.status);
               }
               break;
             case 401:
-              this.toastr.error(error.statusText, error.status);
+              this.toastr.error(error.error, error.status);
               break;
             case 404:
               this.router.navigateByUrl('/not-found');

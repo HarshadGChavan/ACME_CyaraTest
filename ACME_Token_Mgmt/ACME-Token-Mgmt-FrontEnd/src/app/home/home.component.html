@@ -1,10 +1,42 @@
 <div class="container mt-5">
-  <ng-container *ngIf="!(adminLoginService.currentUser$ | async)">
-    <h3>Log in using admin user and View all tokens with more details and enable/disable them.</h3>
-  </ng-container>
-  <br><br>
+  <br>
   <div class="text-center">
     <app-token-validator></app-token-validator>
   </div>
+  <br><br>
+  <ng-container *ngIf="!(adminLoginService.currentUser$ | async)">
+    <h3>Log in using admin user (admin/admin@123) and View all tokens with more details and enable/disable them.</h3>
+    <ul>
+      <li>Backend created with Static Database of List, which can store Tokens created dynamically.</li>
+      <li>FrontEnd created with Admin user who can login and manage tokens.</li>
+      <li>FrontEnd can be used by any user to validate his token.</li>
+    </ul>
+    <br>
+    <h4>Technical Stack Used :</h4>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h4>Front End:</h4>
+          <ul>
+            <li>Angular 11</li>
+            <li>BootStrap</li>
+            <li>Angular Material Table (for paging and filter)</li>
+            <li>Toaster Service</li>
+          </ul>
+        </div>
+        <div class="col-md-5">
+          <h4>Back End:</h4>
+          <ul>
+            <li>.Net 5</li>
+            <li>AutoMapper</li>
+            <li>Repository Pattern</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <br>
+    <h4 class="text-info">Note: We can still refine the code and implement proper validation with reactive forms on frontend.
+      Also on backend can strength the error handling by custom error handler middleware. Unit test case can be implement as well.</h4>
+  </ng-container>
 </div>
 
