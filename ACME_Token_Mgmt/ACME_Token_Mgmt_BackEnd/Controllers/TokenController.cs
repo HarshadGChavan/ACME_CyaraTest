@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using ACME_Token_Mgmt_BackEnd.Repositories;
 using Microsoft.Extensions.Logging;
 using ACME_Token_Mgmt_BackEnd.Entities;
+using AutoMapper;
+using ACME_Token_Mgmt_BackEnd.DTOs;
 
 namespace ACME_Token_Mgmt_BackEnd.Controllers
 {
@@ -17,11 +19,13 @@ namespace ACME_Token_Mgmt_BackEnd.Controllers
     {
         private readonly ILogger<TokenController> _logger;
         private readonly ITokenManager tokenManager;
+        private readonly IMapper mapper;
 
-        public TokenController(ILogger<TokenController> logger, ITokenManager tokenManager)
+        public TokenController(ILogger<TokenController> logger, ITokenManager tokenManager,IMapper mapper)
         {
             _logger = logger;
             this.tokenManager = tokenManager;
+            this.mapper = mapper;
         }
 
         //.... Get list of tokens
@@ -29,7 +33,9 @@ namespace ACME_Token_Mgmt_BackEnd.Controllers
         public ActionResult<List<Token>> Get()
         {
             var resultTokens = tokenManager.GetAllTokens();
-            return Ok(resultTokens);
+            List<TokenDTO> finalTokens =
+                mapper.Map<List<Token>, List<TokenDTO>>(resultTokens);
+            return Ok(finalTokens);
         }
 
         //.... Generate token operation

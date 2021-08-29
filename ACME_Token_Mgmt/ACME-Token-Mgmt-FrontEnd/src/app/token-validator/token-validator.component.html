@@ -1,0 +1,12 @@
+  <br>
+  <div class="row">
+    <div class="col-md-1"><h3 style="float: right;" >Token: </h3></div>
+    <div class="col-md-8">
+      <input type="text" id="tokenName" name="tokenName" class="form-control"
+        required minlength="4" [(ngModel)]="tokenName">
+    </div>
+    <div class="col-md-3 ml-2">
+      <button class="btn btn-info" style="float: left;" (click)="validateToken(tokenName)" >Validate Token</button>
+    </div>
+</div>
+

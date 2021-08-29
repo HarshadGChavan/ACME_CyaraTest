@@ -28,33 +28,44 @@ namespace ACME_Token_Mgmt_BackEnd.Infra
             var valToken = Guid.NewGuid().ToString();
             Token token = new Token()
             {
-                Value = valToken,
-                ExpiryDate = System.DateTime.Now.AddMinutes(15),
+                token = valToken,
+                ExpiryDate = System.DateTime.Now.AddMinutes(5),
                 Active = true
-            };
+                //Expired = false
+        };
             StaticTokenDB.Tokens.Add(token);
             return token;
         }
 
         public Token ChangeTokenState(Token token)
         {
-            var updatetoken = StaticTokenDB.Tokens.FirstOrDefault(x => x.Value == token.Value
-            && x.ExpiryDate > DateTime.Now);
+            var updatetoken = StaticTokenDB.Tokens.FirstOrDefault(x => x.token == token.token);
             updatetoken.Active = token.Active;
+            if(updatetoken.Active)
+                updatetoken.ExpiryDate = System.DateTime.Now.AddMinutes(5);
+            else
+                updatetoken.ExpiryDate = System.DateTime.Now;
             return updatetoken;
         }
 
         public List<Token> GetAllTokens()
         {
-           //return StaticTokenDB.Tokens.Where(x => x.Active 
-           // && x.ExpiryDate > DateTime.Now).ToList();
-           return StaticTokenDB.Tokens.Where(x => x.Active
-            && x.ExpiryDate > DateTime.Now).ToList();
+            //return StaticTokenDB.Tokens.Where(x => x.Active 
+            // && x.ExpiryDate > DateTime.Now).ToList();
+            foreach (var item in StaticTokenDB.Tokens)
+            {
+                if (item.ExpiryDate < System.DateTime.Now)
+                {
+                    //item.Expired = true;
+                    item.Active = false;
+                }
+            }
+            return StaticTokenDB.Tokens;
         }
 
         public Constants.VerifyToken ValidateToken(Token token)
         {
-            var tokenToVerify = StaticTokenDB.Tokens.FirstOrDefault(x => x.Value == token.Value);
+            var tokenToVerify = StaticTokenDB.Tokens.FirstOrDefault(x => x.token == token.token);
             if (tokenToVerify == null)
                 return Constants.VerifyToken.NotFound;
             

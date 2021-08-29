@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ACME_Token_Mgmt_BackEnd.Repositories;
 using ACME_Token_Mgmt_BackEnd.Infra;
+using ACME_Token_Mgmt_BackEnd.helpers;
 
 namespace ACME_Token_Mgmt_BackEnd
 {
@@ -35,11 +36,8 @@ namespace ACME_Token_Mgmt_BackEnd
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ACME_Token_Mgmt_BackEnd", Version = "v1" });
             });
             services.AddCors();
-            //    c =>
-            //{
-            //    c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
-            //});
-
+            services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

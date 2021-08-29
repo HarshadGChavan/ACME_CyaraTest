@@ -5,7 +5,6 @@ import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import {map} from 'rxjs/operators';
 
-
 @Injectable({
   providedIn: 'root'
 })

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-// import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ToastrModule } from 'ngx-toastr';
 // import { TabsModule } from 'ngx-bootstrap/tabs';
 // import { NgxSpinnerModule } from 'ngx-spinner';
@@ -10,7 +10,7 @@ import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [],
   imports:[
-    // BsDropdownModule.forRoot(),
+    BsDropdownModule.forRoot(),
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
     })
@@ -19,7 +19,7 @@ import { ToastrModule } from 'ngx-toastr';
     // PaginationModule.forRoot()
   ],
   exports:[
-    // BsDropdownModule,
+    BsDropdownModule,
     ToastrModule,
     // TabsModule,
     // NgxSpinnerModule,

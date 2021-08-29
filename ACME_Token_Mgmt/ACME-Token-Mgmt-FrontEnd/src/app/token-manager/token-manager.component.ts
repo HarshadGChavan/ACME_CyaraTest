@@ -1,14 +1,12 @@
+
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 
-export interface UserData {
-  No: number;
-  token: string;
-  expiry: string;
-  active: boolean;
-}
+import { TokenManageService } from './../service/token-manage.service';
+import { tokenACME } from './../_models/tokenACME';
+
 
  @Component({
   selector: 'app-token-manager',
@@ -16,30 +14,21 @@ export interface UserData {
   styleUrls: ['./token-manager.component.css']
 })
 export class TokenManagerComponent implements AfterViewInit {
-  displayedColumns: string[] = ['No', 'token', 'expiry', 'active'];
-  dataSource: MatTableDataSource<UserData>;
+
+  displayedColumns: string[] = ['token', 'expiry', 'active'];
+  dataSource: MatTableDataSource<tokenACME>;
+  tokens: tokenACME[];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor() {
-
-    const users = [
-      {No: 1, token: 'Hydrogen', expiry: "10 Aug 2021", active: true},
-      {No: 2, token: 'Helium', expiry: "10 Aug 2021", active: true},
-      {No: 3, token: 'Lithium', expiry: "10 Aug 2021", active: true},
-      {No: 4, token: 'Beryllium', expiry: "10 Aug 2021", active: true},
-      {No: 5, token: 'Boron', expiry: "10 Aug 2021", active: true},
-      {No: 6, token: 'Carbon', expiry: "10 Aug 2021", active: true}
-    ];
-
+  constructor(private tokenManageService: TokenManageService) {
     // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
+    this.getAllTokens();
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+
   }
 
   applyFilter(event: Event) {
@@ -51,8 +40,40 @@ export class TokenManagerComponent implements AfterViewInit {
     }
   }
 
-  changed(token:string){
+  getAllTokens(){
+    this.tokenManageService.getTokens().subscribe(tokens =>
+      {
+      this.tokens = tokens;
+      console.log('printing current tokens-- ');
+      console.log(this.tokens);
+      this.datasourceConfig();
+      });
+  }
+
+  datasourceConfig()
+  {
+    this.dataSource = new MatTableDataSource(this.tokens);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  createToken()
+  {
+    this.tokenManageService.generateToken().subscribe(token =>
+      {
+      console.log('Token Created!');
+      console.log(token);
+      this.getAllTokens();
+      });
+  }
+
+  updateToken(token:tokenACME){
     console.log(token);
-    alert(token);
+    this.tokenManageService.updateToken(token).subscribe(token =>
+      {
+      console.log('Token updated!');
+      console.log(token);
+      this.getAllTokens();
+      });
   }
 }

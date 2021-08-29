@@ -24,10 +24,10 @@ export class NavComponent implements OnInit {
     console.log(this.model);
     this.adminLoginService.login(this.model).subscribe(response => {
       console.log('Inside Nav ROute');
-
+      this.router.navigate(['tokenManager']);
     // tslint:disable-next-line: no-shadowed-variable
     });
-    this.router.navigate(['tokenManager']);
+
   }
 
   // tslint:disable-next-line: typedef

@@ -6,7 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { NavComponent } from './nav/nav.component';
 import { ToastrModule } from 'ngx-toastr';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SharedModule } from 'src/shared/shared.modules';
 import {FormsModule} from '@angular/forms';
 import { TokenManagerComponent } from './token-manager/token-manager.component';
@@ -17,6 +17,9 @@ import { MatInputModule } from '@angular/material/input';
 import {MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ServerErrorComponent } from './errors/server-error/server-error.component';
+import { ErrorInterceptor } from './interceptors/error.interceptor';
+import { TokenValidatorComponent } from './token-validator/token-validator.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,9 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     HomeComponent,
     NotFoundComponent,
     NavComponent,
-    TokenManagerComponent
+    TokenManagerComponent,
+    ServerErrorComponent,
+    TokenValidatorComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +44,8 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     MatSlideToggleModule,
     BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
